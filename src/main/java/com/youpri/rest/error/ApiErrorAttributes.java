@@ -14,6 +14,7 @@ public class ApiErrorAttributes extends DefaultErrorAttributes {
 
 	@Override
 	public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
+		@SuppressWarnings("deprecation")
 		Map<String, Object> allErrorAttributes = super.getErrorAttributes(webRequest, includeStackTrace);
 
 		Map<String, Object> errorAttributes = new HashMap<>();

@@ -9,6 +9,7 @@ public class VideosDTO {
 	private String Descripcion;
 	private String categoriaNombre;
 	private String usuarioNombre;
+	private String Imagen;
 	
 	public String getTitulo() {
 		return Titulo;
@@ -36,5 +37,12 @@ public class VideosDTO {
 	}
 	public void setUsuarioNombre(String usuarioNombre) {
 		this.usuarioNombre = usuarioNombre;
+	}
+	
+	public String getImagen() {
+		return Imagen;
+	}
+	public void setImagen(String imagen) {
+		Imagen = imagen;
 	}
 }

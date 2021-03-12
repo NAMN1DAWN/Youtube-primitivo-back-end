@@ -40,6 +40,8 @@ public class UserEntityService extends BaseService<UserEntity, Long, UserReposit
 			UserEntity userEntity = UserEntity.builder()
 											.username(newUser.getUsername())
 											.password(passwordEncoder.encode(newUser.getPassword()))
+											.correo(newUser.getCorreo())
+											.fullName(newUser.getFullName())
 											.avatar(newUser.getAvatar())
 											.roles(Stream.of(UserRole.USER).collect(Collectors.toSet()))
 											.build();

@@ -18,4 +18,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 		return userEntityService.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + "no encontrado"));
 	}
 	
+	public UserDetails loadUserById(Long id)  throws UsernameNotFoundException{
+		return userEntityService.findById(id).orElseThrow(() -> new UsernameNotFoundException("Usuario con ID: " + id + " no encrontado"));
+	}
+	
 }

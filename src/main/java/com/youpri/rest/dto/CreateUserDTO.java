@@ -6,6 +6,8 @@ public class CreateUserDTO {
 	private String avatar;
 	private String password;
 	private String password2;
+	private String correo;
+	private String fullName;
 	
 	public String getUsername() {
 		return username;
@@ -30,5 +32,17 @@ public class CreateUserDTO {
 	}
 	public void setPassword2(String password2) {
 		this.password2 = password2;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 }

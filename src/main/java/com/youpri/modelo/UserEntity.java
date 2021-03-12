@@ -40,9 +40,10 @@ public class UserEntity implements UserDetails{
 	private long id;
 	@Column(unique = true)
 	private String username;
-	private char correo;
+	private String correo;
 	private String password;
 	private String avatar;
+	private String fullName;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
@@ -92,11 +93,11 @@ public class UserEntity implements UserDetails{
 		return null;
 	}
 
-	public char getCorreo() {
+	public String getCorreo() {
 		return correo;
 	}
 
-	public void setCorreo(char correo) {
+	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
 

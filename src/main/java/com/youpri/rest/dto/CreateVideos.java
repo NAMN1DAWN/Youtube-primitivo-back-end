@@ -9,6 +9,7 @@ public class CreateVideos {
 	private String Descripcion;
 	private long categoriaId;
 	private long usuarioId;
+	private String Imagen;
 	
 	public String getTitulo() {
 		return Titulo;
@@ -35,5 +36,12 @@ public class CreateVideos {
 	public void setUsuarioId(long usuarioId) {
 		this.usuarioId = usuarioId;
 	}
+	public String getImagen() {
+		return Imagen;
+	}
+	public void setImagen(String imagen) {
+		Imagen = imagen;
+	}
+	
 	
 }

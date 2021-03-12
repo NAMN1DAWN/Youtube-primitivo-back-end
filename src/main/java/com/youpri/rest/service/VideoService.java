@@ -2,10 +2,10 @@ package com.youpri.rest.service;
 
 import java.util.Optional;
 
-import org.jvnet.hk2.annotations.Service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
@@ -23,23 +23,23 @@ import com.youpri.rest.service.subida.StorageService;
 
 
 @Service
-public interface VideosService {
+public class VideoService {
 
-	VideosRepositorio videosRepositorio = null;
+	static VideosRepositorio videosRepositorio = null;
 
-	CategoriaRepositorio categoriaRepositorio = null;
+	private final static CategoriaRepositorio categoriaRepositorio = null;
 	
-	final VideosDTOConverter videosDTOConverter = null;
+	final static VideosDTOConverter videosDTOConverter = null;
 	
 	final CustomUserDetailsService customUserDetailsService = null;
 	
-	final UserEntityService userEntityService = null;
+	final static UserEntityService userEntityService = null;
 	
 	final UserRepositorio userRepositorio = null;
 	
 	Optional<UserEntity> usuario = null;
 	
-	final StorageService storageService= null;
+	final static StorageService storageService= null;
 	
 	public static VideosDTO crearVideos(CreateVideos nuevo, MultipartFile file) {
 		String urlImagen = null;
