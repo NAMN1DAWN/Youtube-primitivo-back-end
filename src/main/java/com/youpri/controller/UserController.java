@@ -2,6 +2,7 @@ package com.youpri.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,12 @@ public class UserController {
 		return userDTOConverter.convertUserEntityToGetUserDTO(user);
 	}
 	
+	@GetMapping("/location")
+	public Optional<UserEntity> locationUsuario()
+	{
+		return userEntityService.Locationlogin();
+	}
+
 	@GetMapping("/")
 	public ResponseEntity<?> obtenerTodos(){
 		List<UserEntity> result = userRepositorio.findAll();

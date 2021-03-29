@@ -26,7 +26,6 @@ public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter{
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeRequests()
-				.antMatchers("/h2-console/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/videos/**").hasAnyRole("USER","ADMIN")
 				.antMatchers(HttpMethod.PUT, "/videos/**").hasAnyRole("USER","ADMIN")
 				.antMatchers(HttpMethod.DELETE, "/videos/**").hasAnyRole("USER","ADMIN")

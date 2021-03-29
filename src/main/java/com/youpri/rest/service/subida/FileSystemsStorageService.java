@@ -23,7 +23,7 @@ public class FileSystemsStorageService implements StorageService{
 	private Path rootLocation = null;
 
 	
-	public void FileSystemStorageService(@Value("${upload.root-location}") String path) {
+	public void FileSystemStorageService(@Value("${spring.servlet.multipart.location}") String path) {
 		this.rootLocation = Paths.get(path);
 	}
     

@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,18 +24,21 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableAuthorizationServer
 @RequiredArgsConstructor
+@PropertySource(value = "classpath:/src/main/resources/application.properties", ignoreResourceNotFound = true)
 public class OAuthAuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationManager authenticationManager;
 	private final UserDetailsService userDetailsService;
-	private final DataSource dataSource;
+	
 	
 	private static final String CODE_GRANT_TYPE = "authorization_code";
 	private static final String IMPLICIT_GRANT_TYPE = "implicit";
 	private static final String PASS_GRANT_TYPE = "password";
 	private static final String REFRESH_TOKEN_GRANT_TYPE = "refrhes_token";
+
+	private final DataSource dataSource;
 	
-	@Value("{security.oauth2.client-id}")
+	@Value("${security.oauth2.client-id}")
 	private String clientId;
 	
 	@Value("${security.oauth2.client.client-secret}")
@@ -47,7 +51,6 @@ public class OAuthAuthorizationServer extends AuthorizationServerConfigurerAdapt
 			.checkTokenAccess("isAuthenticated()")
 			.allowFormAuthenticationForClients();
 	}
-
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients
@@ -70,7 +73,6 @@ public class OAuthAuthorizationServer extends AuthorizationServerConfigurerAdapt
 			.userDetailsService(userDetailsService)
 			.tokenStore(tokenStore());
 	}
-	
 	@Bean
 	public TokenStore tokenStore() {
 		return new JdbcTokenStore(dataSource);
@@ -80,6 +82,7 @@ public class OAuthAuthorizationServer extends AuthorizationServerConfigurerAdapt
 	public AccessTokenConverter accessTokenConverter() {
 		return new JwtAccessTokenConverter();
 	}
+	
 
 	@Value("${security.oauth2.client.registered-redirect-uri}")
 	private String redirectUri;

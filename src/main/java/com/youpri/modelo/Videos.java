@@ -29,6 +29,7 @@ public class Videos {
 	@JoinColumn(name="usuario_id")
 	private Optional<UserEntity> cliente;
 	private String Imagen;
+	private String Fichero;
 	
 	public String getTitulo() {
 		return Titulo;
@@ -50,5 +51,11 @@ public class Videos {
 	}
 	public void setImagen(String imagen) {
 		Imagen = imagen;
+	}
+	public String getFichero() {
+		return Fichero;
+	}
+	public void setFichero(String fichero) {
+		Fichero = fichero;
 	}
 }

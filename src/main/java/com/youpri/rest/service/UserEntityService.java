@@ -4,8 +4,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class UserEntityService extends BaseService<UserEntity, Long, UserRepositorio>{
 	
 	private final PasswordEncoder passwordEncoder = null;
+	private final UserRepositorio userRepositorio = null;
 	
 	public Optional<UserEntity> findByUsername(String username)
 	{
@@ -54,5 +60,20 @@ public class UserEntityService extends BaseService<UserEntity, Long, UserReposit
 		{
 			throw new NewUserWithDifferentPasswordsException();
 		}
+	}
+	
+	@PostConstruct
+	public Optional<UserEntity> Locationlogin() {
+		
+		Optional<UserEntity> usuario= null;
+	    Authentication auth = SecurityContextHolder
+	            .getContext()
+	            .getAuthentication();
+	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	    
+	    usuario = userRepositorio.findByUsername(userDetail.getUsername());
+	    System.out.println(usuario);
+	    
+	    return usuario;
 	}
 }

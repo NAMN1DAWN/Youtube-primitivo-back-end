@@ -41,15 +41,22 @@ public class VideoService {
 	
 	final static StorageService storageService= null;
 	
-	public static VideosDTO crearVideos(CreateVideos nuevo, MultipartFile file) {
+	public static VideosDTO crearVideos(CreateVideos nuevo, MultipartFile file, MultipartFile fichero) {
 		String urlImagen = null;
+		String urlFichero = null;
 		
-		if(!file.isEmpty()) 
+		if(!file.isEmpty() && !fichero.isEmpty()) 
 		{
 			String imagen = storageService.store(file);
 			urlImagen = MvcUriComponentsBuilder
 					.fromMethodName(FicherosController.class, "serveFile", imagen, null)
 					.build().toUriString();
+			
+			String video = storageService.store(fichero);
+			urlFichero = MvcUriComponentsBuilder
+					.fromMethodName(FicherosController.class, "serverFile", video, null)
+					.build().toString();
+			
 		}
 	    Videos nuevoVideo = new Videos();
 	    nuevoVideo.setTitulo(nuevo.getTitulo());
@@ -58,6 +65,7 @@ public class VideoService {
 	    nuevoVideo.setCategoria(categoria);
 	    nuevoVideo.setCliente(BusquedaId());
 	    nuevoVideo.setImagen(urlImagen);
+	    nuevoVideo.setFichero(urlFichero);
 	    videosRepositorio.save(nuevoVideo);
 	    VideosDTO videosDTO = videosDTOConverter.convertToDto(nuevoVideo);
 	    return videosDTO;

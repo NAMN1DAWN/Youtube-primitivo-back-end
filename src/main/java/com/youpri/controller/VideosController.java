@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.youpri.modelo.Categoria;
+import com.youpri.modelo.CategoriaRepositorio;
 import com.youpri.modelo.Videos;
 import com.youpri.modelo.VideosRepositorio;
 import com.youpri.rest.dto.CreateVideos;
 import com.youpri.rest.dto.VideosDTO;
 import com.youpri.rest.dto.converter.VideosDTOConverter;
-import com.youpri.rest.service.VideosService;
+import com.youpri.rest.service.VideoService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class VideosController {
 
 	private final VideosRepositorio videosRepositorio = null;
+	private final CategoriaRepositorio categoriaRepositorio = null;
 	private final VideosDTOConverter videosDTOConverter = null;
 	
 	@GetMapping("/")
@@ -60,10 +63,24 @@ public class VideosController {
 		}
 	}
 	
-	@PostMapping(value="/videos", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value="/subida", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<VideosDTO> nuevoVideo(@RequestPart("nuevo") CreateVideos nuevo,
-			@RequestPart("file") MultipartFile file){
-		return ResponseEntity.status(HttpStatus.CREATED).body(VideosService.crearVideos(nuevo,file));
+			@RequestPart("file") MultipartFile file, @RequestPart("fichero") MultipartFile fichero){
+		return ResponseEntity.status(HttpStatus.CREATED).body(VideoService.crearVideos(nuevo,file,fichero));
+	}
+	
+	@GetMapping("/subida")
+	public ResponseEntity<?> obtenerCategorias(){
+		List<Categoria> result = categoriaRepositorio.findAll();
+		
+		if(result.isEmpty()) 
+		{
+			return ResponseEntity.notFound().build();
+		}
+		else 
+		{
+			return ResponseEntity.ok(result);
+		}
 	}
 	
 	@PutMapping("/videos/{id}")
